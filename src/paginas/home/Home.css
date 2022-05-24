@@ -1,0 +1,10 @@
+.principal{
+    color: aqua;
+    text-align: center;
+}
+.foto{
+    display: block;
+    width: 500px;
+    height: auto;
+    margin: 0 auto;
+}
