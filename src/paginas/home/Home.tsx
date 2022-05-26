@@ -50,11 +50,9 @@ function Home() {
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <img
+          <img className="Img"
             src="https://images.vexels.com/media/users/3/162490/isolated/preview/a58999f5352908abd4a838a76a9ed212-silhueta-de-digitacao-do-botao-de-papel-da-maquina-de-escrever.png"
             alt=""
-            width="400px"
-            height="400px"
       
           />
         </Grid>

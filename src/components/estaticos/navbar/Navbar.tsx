@@ -1,49 +1,37 @@
-import { AppBar, Box, Toolbar, Typography } from "@material-ui/core";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
+import "./Navbar.css";
 
-function Navbar(){
-    return(
-        <>
-            <AppBar position="static">
-                <Toolbar variant="dense" style={{background:"black"}}>
-                    <Box style={{ cursor: "pointer"}}>
-                        <Typography variant="h5" color="inherit">
-                            BlogPessoal
-                        </Typography>
-                    </Box>
-
-                    <Box display="flex" justifyContent="start">
-                        <Box mx={1} style={{ cursor: "pointer" }}>
-                            <Typography variant="h6" color="inherit" >
-                                Home
-                            </Typography>
-                        </Box>
-                        <Box mx={1} style={{ cursor: "pointer" }}>
-                            <Typography variant="h6" color="inherit" >
-                                Postagens
-                            </Typography>
-                        </Box>
-                        <Box mx={1} style={{ cursor: "pointer" }}>
-                            <Typography variant="h6" color="inherit" >
-                                Temas
-                            </Typography>
-                        </Box>
-                        <Box mx={1} style={{ cursor: "pointer" }}>
-                            <Typography variant="h6" color="inherit" >
-                                Cadastrar Tema
-                            </Typography>
-                        </Box>
-                        <Box mx={1} style={{ cursor: "pointer" }}>
-                            <Typography variant="h6" color="inherit">
-                                Logout
-                            </Typography>
-                        </Box>
-                    </Box>
-
-                </Toolbar>
-            </AppBar>
-        </>
-    )
+function Navbar() {
+  return (
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" className="back" >
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Blog Pessoal
+            </Typography>
+            <Button color="inherit">Logout</Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </>
+  );
 }
 
 export default Navbar;
