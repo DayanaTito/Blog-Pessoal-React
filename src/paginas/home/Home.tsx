@@ -35,11 +35,12 @@ function Home() {
               expresse aqui os seus pensamentos e opiniões!
             </Typography>
           </Box>
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" className="ver">
             <Box marginRight={1}></Box>
             <Button
               variant="outlined"
               style={{
+                fontWeight: "bold",
                 borderColor: "white",
                 backgroundColor: "#18182e",
                 color: "white",
