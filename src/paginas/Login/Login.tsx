@@ -1,10 +1,48 @@
 import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
-import React from "react";
-import { Link } from "react-router-dom";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { ChangeEvent, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useLocalStorage from "react-use-localstorage";
+import { login} from "../../services/Service";
+import UserLogin from "../../models/UserLogin";
+
 import "./Login.css";
 
 function Login() {
+  let Navigate = useNavigate();
+  const [token, setToken] = useLocalStorage("token");
+  const [userLogin, serUserLogin] = useState<UserLogin>({
+    id: 0,
+    usuario: "",
+    senha: "",
+    foto: "",
+    token: "",
+  });
+
+  function updateModel(e: ChangeEvent<HTMLInputElement>) {
+    serUserLogin({
+      ...userLogin,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  useEffect(() => {
+    if (token != "") {
+      Navigate("/home");
+    }
+  }, [token]);
+
+  async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    try {
+      await login(`/usuarios/logar`, userLogin, setToken);
+      
+      alert("Usuário Logado com sucesso");
+    } catch (error) {
+      alert("Dados do usuário inconsistentes. Erro ao logar");
+    }
+  }
+
   return (
     <>
       <Grid
@@ -14,8 +52,8 @@ function Login() {
         alignItems="center"
       >
         <Grid xs={6} alignItems="center">
-          <Box paddingX={20}>
-            <form>
+          <Box paddingX={20} paddingY={20}>
+            <form onSubmit={onSubmit}>
               <Typography
                 variant="h5"
                 gutterBottom
@@ -27,6 +65,8 @@ function Login() {
                 Sign in to Blog Pessoal
               </Typography>
               <TextField
+                value={userLogin.usuario}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)}
                 id="usuario"
                 label="Username"
                 variant="outlined"
@@ -35,6 +75,8 @@ function Login() {
                 fullWidth
               />
               <TextField
+                value={userLogin.senha}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => updateModel(e)}
                 id="senha"
                 label="Password"
                 variant="outlined"
@@ -44,31 +86,35 @@ function Login() {
                 fullWidth
               />
               <Box marginTop={2} textAlign="center">
-                <Link to="/home" className="Signin">
-                  <Button className="Signin" type="submit" variant="contained" color="primary">
-                    Sign in
-                  </Button>
-                </Link>
+                <Button
+                  className="Signin"
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  Entrar
+                </Button>
               </Box>
             </form>
             <Box display="flex" justifyContent="center" marginTop={2}>
               <Box marginRight={1}>
                 <Typography variant="subtitle1" gutterBottom align="center">
-                New to Blog Pessoal?
+                  Novo no Blog Pessoal?
                 </Typography>
               </Box>
-              <Typography
-                variant="subtitle1"
-                gutterBottom
-                align="center"
-                style={{ fontWeight: "bold" }}
-              >
-                Create an account
-              </Typography>
+              <Link to="/cadastro" className="text-decorator-none">
+                <Typography
+                  variant="subtitle1"
+                  gutterBottom
+                  align="center"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Crie a sua conta!
+                </Typography>
+              </Link>
             </Box>
           </Box>
         </Grid>
-       
       </Grid>
     </>
   );
