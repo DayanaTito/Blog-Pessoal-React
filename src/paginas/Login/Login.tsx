@@ -102,7 +102,7 @@ function Login() {
                   Novo no Blog Pessoal?
                 </Typography>
               </Box>
-              <Link to="/cadastro" className="text-decorator-none">
+              <Link to="/cadastrar" className="text-decorator-none">
                 <Typography
                   variant="subtitle1"
                   gutterBottom
