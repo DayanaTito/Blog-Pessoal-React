@@ -1,15 +1,24 @@
 import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
 import React, { ChangeEvent, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
-import { login} from "../../services/Service";
+import { useSelector } from "react-redux";
+
+import { login } from "../../services/Service";
 import UserLogin from "../../models/UserLogin";
 
 import "./Login.css";
+import { useDispatch } from "react-redux";
+import { addToken } from "../../store/tokens/action";
 
 function Login() {
   let Navigate = useNavigate();
-  const [token, setToken] = useLocalStorage("token");
+
+  const dispacth = useDispatch();
+
+  const [token, setToken] = useState(""); 
+
+  dispacth(addToken(token));
+
   const [userLogin, serUserLogin] = useState<UserLogin>({
     id: 0,
     usuario: "",
@@ -26,7 +35,8 @@ function Login() {
   }
 
   useEffect(() => {
-    if (token != "") {
+    if (token !== "") {
+      dispacth(addToken(token))
       Navigate("/home");
     }
   }, [token]);
@@ -36,7 +46,7 @@ function Login() {
 
     try {
       await login(`/usuarios/logar`, userLogin, setToken);
-      
+
       alert("Usuário Logado com sucesso");
     } catch (error) {
       alert("Dados do usuário inconsistentes. Erro ao logar");

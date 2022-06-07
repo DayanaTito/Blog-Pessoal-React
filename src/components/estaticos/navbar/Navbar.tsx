@@ -8,26 +8,39 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
-import { ListItemIcon, ListItemText, MenuItem, MenuList, Paper } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { TokenState } from "../../../store/tokens/tokenReducer";
+import {
+  Grid,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Paper,
+} from "@material-ui/core";
 import { ContentCut } from "@mui/icons-material";
+import { addToken } from "../../../store/tokens/action";
 
 function Navbar() {
-  const [token, setToken] = useLocalStorage("token");
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  );
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function goLogout() {
-    setToken("");
+    dispatch(addToken(""));
     alert("Usuário deslogado");
     navigate("/login");
   }
-  return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" className="back">
-          <Toolbar>
-            <Paper>
-           
+
+  var navbarComponent;
+
+  if (token !== "") {
+    navbarComponent = (
+     
+          <AppBar position="static" className="back">
+            <Toolbar>
               <MenuList>
                 <MenuItem>
                   <ListItemIcon>
@@ -37,7 +50,7 @@ function Navbar() {
                   <Typography variant="body2" color="text.secondary">
                     ⌘X
                   </Typography>
-                  
+
                   <Link to="/home" className="text-decorator-none">
                     <Box mx={1} className="cursor">
                       <Typography variant="h6" color="inherit">
@@ -47,29 +60,33 @@ function Navbar() {
                   </Link>
                 </MenuItem>
               </MenuList>
-            
-            </Paper>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Blog Pessoal
-            </Typography>
-            <Link to="/login" className="Signin">
+
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                Blog Pessoal
+              </Typography>
+              <Link to="/login" className="Signin">
+                <Box>
+                  <Button className="Signin" color="inherit">
+                    Login
+                  </Button>
+                </Box>
+              </Link>
+
               <Box>
-                <Button className="Signin" color="inherit">
-                  Login
+                <Button className="Signin" color="inherit" onClick={goLogout}>
+                  Logout
                 </Button>
               </Box>
-            </Link>
+            </Toolbar>
+          </AppBar>
+        
+    );
+  }
 
-            <Box>
-              <Button className="Signin" color="inherit" onClick={goLogout}>
-                Logout
-              </Button>
-            </Box>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </>
-  );
+  return (
+  <>
+  {navbarComponent}
+  </>);
 }
 
 export default Navbar;
