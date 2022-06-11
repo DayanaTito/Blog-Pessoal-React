@@ -4,7 +4,7 @@
 .Signin{
     text-decoration: none;
     cursor: pointer;
-    color: white;
+    color: white !important;
     font-weight: bold !important;
    
 }

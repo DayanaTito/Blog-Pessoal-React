@@ -9,14 +9,22 @@ import "./Home.css";
 
 function Home() {
   let navigate = useNavigate();
-  
+
   const token = useSelector<TokenState, TokenState["tokens"]>(
     (state) => state.tokens
   );
 
   useEffect(() => {
     if (token === "") {
-      alert("Você precisa estar logado");
+      toast.error("Você precisa estar logado!", {
+        position: "top-right",
+        autoClose: 1400,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
       navigate("/login");
     }
   }, [token]);
@@ -56,18 +64,18 @@ function Home() {
             <Box marginRight={1}>
               <ModalPostagem />
             </Box>
-            <Link to ="/posts">
-            <Button 
-              variant="outlined"
-              style={{
-                fontWeight: "bold",
-                borderColor: "white",
-                backgroundColor: "#18182e",
-                color: "white",
-              }}
-            >
-              Ver Postagens
-            </Button>
+            <Link to="/posts">
+              <Button
+                variant="outlined"
+                style={{
+                  fontWeight: "bold",
+                  borderColor: "white",
+                  backgroundColor: "#18182e",
+                  color: "white",
+                }}
+              >
+                Ver Postagens
+              </Button>
             </Link>
           </Box>
         </Grid>
