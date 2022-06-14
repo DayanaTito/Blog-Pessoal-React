@@ -11,11 +11,11 @@ import ListaPostagem from "./components/postagens/listaPostagem/ListaPostagem";
 import CadastroPostagem from "./components/postagens/cadastroPostagem/CadastroPostagem";
 import CadastroTema from "./components/temas/cadastroTema/CadastroTema";
 import DeletarTema from "./components/temas/deletarTema/DeletarTema";
-import DeletarPostagem from "./components/postagens/deletarPostagem/DeletarPostagem";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DeletarPostagem from "./components/postagens/deletarPostagem/DeletarPostagem";
 
 function App() {
   return (
@@ -34,15 +34,10 @@ function App() {
           <Route path="/temas" element={<ListaTema />} />
           <Route path="/posts" element={<ListaPostagem />} />
           <Route path="/formularioPostagem" element={<CadastroPostagem />} />
-
           <Route path="/formularioPostagem/:id" element={<CadastroPostagem />} />
-
           <Route path="/formularioTema" element={<CadastroTema />} />
-
           <Route path="/formularioTema/:id" element={<CadastroTema />} />
-
           <Route path="/deletarPostagem/:id" element={<DeletarPostagem />} />
-
           <Route path="/deletarTema/:id" element={<DeletarTema />} />
         </Routes>
       </div>
