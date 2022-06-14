@@ -6,6 +6,7 @@ import ModalPostagem from "../../components/postagens/modalPostagem/ModalPostage
 import TabPostagem from "../../components/postagens/tabPostagem/TabPostagem";
 import { TokenState } from "../../store/tokens/tokenReducer";
 import "./Home.css";
+import { toast } from "react-toastify";
 
 function Home() {
   let navigate = useNavigate();
